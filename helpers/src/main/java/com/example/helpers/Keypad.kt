@@ -17,6 +17,7 @@ class Keypad(private val activity: Activity) {
 
     fun down(view: View) {
         Log.w(TAG, object{}.javaClass.enclosingMethod!!.name)
+        view.clearFocus()
         imm!!.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
