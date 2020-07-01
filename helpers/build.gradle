@@ -37,6 +37,8 @@ dependencies {
 
     // rotater
     implementation 'com.github.MasayukiSuda:Mp4Composer-android:v0.4.0'
+    // FFmpegMediaMetadataRetriever
+    implementation 'com.github.wseemann:FFmpegMediaMetadataRetriever:1.0.14'
 }
 repositories {
     mavenCentral()
