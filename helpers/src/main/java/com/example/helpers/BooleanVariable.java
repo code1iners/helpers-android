@@ -1,6 +1,6 @@
 package com.example.helpers;
 
-public class BooleanVarialbe {
+public class BooleanVariable {
     private boolean boo = false;
     private ChangeListener listener;
 

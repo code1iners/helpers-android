@@ -6,13 +6,12 @@ import android.util.Log
 import com.daasuu.mp4compose.FillMode
 import com.daasuu.mp4compose.Rotation
 import com.daasuu.mp4compose.composer.Mp4Composer
-import java.io.File
 
 class VideoRotateSaver(private val activity: Activity) {
     private val TAG: String? = VideoRotateSaver::class.simpleName
     private lateinit var loading: ProgressDialog
     var fileName = "temp.mp4"
-    lateinit var bv: BooleanVarialbe
+    lateinit var bv: BooleanVariable
     lateinit var rotation: Rotation
 
 
@@ -27,7 +26,7 @@ class VideoRotateSaver(private val activity: Activity) {
         loading.setMessage("Loading...")
         loading.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL)
 
-        bv = BooleanVarialbe()
+        bv = BooleanVariable()
     }
 
     fun rotate (srcPath: String) {
