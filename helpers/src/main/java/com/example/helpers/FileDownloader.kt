@@ -48,7 +48,7 @@ class FileDownloader(private val context: Context) {
             while (downloading) {
                 c = downloadManager.query(query)
                 if (c.moveToFirst()) {
-                    Log.i(TAG, "Downloading")
+                    Log.v(TAG, "Downloading")
                     var status = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS))
 
                     if (status == DownloadManager.STATUS_SUCCESSFUL) {
@@ -58,7 +58,7 @@ class FileDownloader(private val context: Context) {
                         break
                     }
                     if (status == DownloadManager.STATUS_FAILED) {
-                        Log.i(TAG, "Failed")
+                        Log.e(TAG, "Failed")
                         downloading = false
                         flag = false
                         break
