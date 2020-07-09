@@ -24,48 +24,51 @@ class FileDownloader(private val context: Context) {
     fun download(url: String, dirName: String, fileName: String): String {
         Log.w(TAG, object: Any(){}.javaClass.enclosingMethod!!.name)
         val file = File(dirName, fileName)
-        if (!file.exists()) {
-            val request = DownloadManager.Request(Uri.parse(url))
-                    .setTitle("Downloading a video")
-                    .setDescription("Downloading test video")
-                    .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
-                    .setDestinationUri(Uri.fromFile(file))
-                    .setRequiresCharging(false)
-                    .setAllowedOverMetered(true)
-                    .setAllowedOverRoaming(true)
+        try {
+            if (!file.exists()) {
+                val request = DownloadManager.Request(Uri.parse(url))
+                        .setTitle("Downloading a video")
+                        .setDescription("Downloading test video")
+                        .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+                        .setDestinationUri(Uri.fromFile(file))
+                        .setRequiresCharging(false)
+                        .setAllowedOverMetered(true)
+                        .setAllowedOverRoaming(true)
 
-            downloadId = downloadManager.enqueue(request)
-            Log.i(TAG, "path : ${file.path}")
+                downloadId = downloadManager.enqueue(request)
+                Log.i(TAG, "path : ${file.path}")
 
-            val query = DownloadManager.Query()
-            var c: Cursor? = null
-            if (query != null) {
-                query.setFilterByStatus(DownloadManager.STATUS_FAILED or DownloadManager.STATUS_PAUSED or DownloadManager.STATUS_SUCCESSFUL or DownloadManager.STATUS_RUNNING or DownloadManager.STATUS_PENDING)
-            } else {
-                return flag.toString()
-            }
+                val query = DownloadManager.Query()
+                var c: Cursor? = null
+                if (query != null) {
+                    query.setFilterByStatus(DownloadManager.STATUS_FAILED or DownloadManager.STATUS_PAUSED or DownloadManager.STATUS_SUCCESSFUL or DownloadManager.STATUS_RUNNING or DownloadManager.STATUS_PENDING)
+                } else {
+                    return flag.toString()
+                }
 
-            while (downloading) {
-                c = downloadManager.query(query)
-                if (c.moveToFirst()) {
-                    Log.v(TAG, "Downloading")
-                    var status = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS))
+                while (downloading) {
+                    c = downloadManager.query(query)
+                    if (c.moveToFirst()) {
+                        Log.v(TAG, "Downloading")
+                        var status = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS))
 
-                    if (status == DownloadManager.STATUS_SUCCESSFUL) {
-                        Log.i(TAG, "Successful")
-                        downloading = false
-                        flag = true
-                        break
-                    }
-                    if (status == DownloadManager.STATUS_FAILED) {
-                        Log.e(TAG, "Failed")
-                        downloading = false
-                        flag = false
-                        break
+                        if (status == DownloadManager.STATUS_SUCCESSFUL) {
+                            Log.i(TAG, "Successful")
+                            downloading = false
+                            flag = true
+                            break
+                        }
+                        if (status == DownloadManager.STATUS_FAILED) {
+                            Log.e(TAG, "Failed")
+                            downloading = false
+                            flag = false
+                            break
+                        }
                     }
                 }
             }
-        }
+
+        } catch (e: Exception) { e.printStackTrace() }
         return file.absolutePath
     }
 }
