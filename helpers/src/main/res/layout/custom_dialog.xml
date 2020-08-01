@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border_radius">
+
+    <RelativeLayout
+        android:id="@+id/customDialog__container"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/customDialog__header_container"
+            android:paddingVertical="5dp"
+            android:background="@drawable/border_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/customDialog__header_image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_toLeftOf="@+id/customDialog__header_title" />
+
+            <TextView
+                android:id="@+id/customDialog__header_title"
+                android:text="@string/title"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/sexyBlack"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/customDialog__body_container"
+            android:background="@drawable/border_bottom"
+            android:layout_below="@+id/customDialog__header_container"
+            android:paddingVertical="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+            <TextView
+                android:id="@+id/customDialog__body_text"
+                android:text="@string/text"
+                android:textSize="20sp"
+                android:textColor="@color/sexyBlack"
+                android:textAlignment="center"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/customDialog__footer_container"
+            android:layout_below="@+id/customDialog__body_container"
+            android:layout_marginTop="10dp"
+            android:weightSum="10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/customDialog__footer_btn_negative"
+                android:text="@string/cancel"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:background="@drawable/gradation_disable"
+                android:layout_marginHorizontal="10dp"
+                android:layout_weight="5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/customDialog__footer_btn_positive"
+                android:text="@string/confirm"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:background="@drawable/gradation_enable"
+                android:layout_marginHorizontal="10dp"
+                android:layout_weight="5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
