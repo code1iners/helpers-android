@@ -2,6 +2,7 @@ package com.example.helpers;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,6 +23,8 @@ public class CustomDialog extends Dialog {
     private Button postive_btn, negative_btn;
 
     private String title_val, text_val, image_val;
+    private Drawable image_dra;
+    private String imageKind;
 
     public CustomDialog(@NonNull Context context, CustomDialogClickListener listener) {
         super(context);
@@ -65,19 +68,24 @@ public class CustomDialog extends Dialog {
 
     public void setImage(String image) {
         this.image_val = image;
+        imageKind = "string";
     }
 
-    public void applyMessage() {
-        this.text_tv.setText(text_val);
+    public void setImage(Drawable image) {
+        this.image_dra = image;
+        imageKind = "drawable";
     }
 
-    public void applyTitle() {
-        this.title_tv.setText(title_val);
-    }
+    public void applyMessage() { this.text_tv.setText(text_val); }
+
+    public void applyTitle() { this.title_tv.setText(title_val); }
 
     public void applyImage() {
         RequestOptions options = new RequestOptions();
         options = options.transform(new CenterCrop(), new RoundedCorners(16));
+        if (imageKind.equals("string"))
         Glide.with(context).load(image_val).apply(options).into(this.image_iv);
+        else
+        Glide.with(context).load(image_dra).apply(options).into(this.image_iv);
     }
 }
