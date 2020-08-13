@@ -19,46 +19,45 @@ class VideoUtility {
                 // note. const vars
                 val FILE_EXTENSION_PNG = ".png"
                 val FILE_UNIT_SEC = "sec"
-                fun thumbnailExtract() {
-                    fun extract(directoryPath: String, filePath: String) {
-                        fileList = ArrayList()
-                        val manager: MediaMetadataRetriever = MediaMetadataRetriever()
-                        manager.setDataSource(filePath)
-                        val duration = manager.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
-                        val durationBySec = duration.toInt() / 1000
-                        Log.i(TAG, "duration:$duration, durationBySec:$durationBySec")
 
-                        // note. path null check
-                        if (directoryPath.isNullOrEmpty()) return
+                fun extract(directoryPath: String, filePath: String) {
+                    fileList = ArrayList()
+                    val manager: MediaMetadataRetriever = MediaMetadataRetriever()
+                    manager.setDataSource(filePath)
+                    val duration = manager.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
+                    val durationBySec = duration.toInt() / 1000
+                    Log.i(TAG, "duration:$duration, durationBySec:$durationBySec")
 
-                        // note. set file directory
-                        directory = File(directoryPath)
-                        directory!!.mkdirs()
+                    // note. path null check
+                    if (directoryPath.isNullOrEmpty()) return
 
-                        Thread {
-                            for (sec in 0 until durationBySec) {
-                                // note. set file name
-                                val fileExtension = FILE_EXTENSION_PNG
-                                val fileUnit = FILE_UNIT_SEC
-                                val fileName = FileManager.Companion.GenerateFileName.asTime() + sec + fileUnit + fileExtension
-                                val file = File(directory, fileName)
-                                file.createNewFile()
-                                fileList!!.add(file)
-                                Log.d(TAG, "moment:${(sec * 1000000).toLong()}")
-                                val bitmap = manager.getFrameAtTime((sec * 1000000).toLong(), MediaMetadataRetriever.OPTION_CLOSEST)
+                    // note. set file directory
+                    directory = File(directoryPath)
+                    directory!!.mkdirs()
 
-                                val bos = ByteArrayOutputStream()
-                                bitmap.compress(Bitmap.CompressFormat.PNG, 90, bos)
-                                val bitmapData = bos.toByteArray()
+                    Thread {
+                        for (sec in 0 until durationBySec) {
+                            // note. set file name
+                            val fileExtension = FILE_EXTENSION_PNG
+                            val fileUnit = FILE_UNIT_SEC
+                            val fileName = FileManager.Companion.GenerateFileName.asTime() + sec + fileUnit + fileExtension
+                            val file = File(directory, fileName)
+                            file.createNewFile()
+                            fileList!!.add(file)
+                            Log.d(TAG, "moment:${(sec * 1000000).toLong()}")
+                            val bitmap = manager.getFrameAtTime((sec * 1000000).toLong(), MediaMetadataRetriever.OPTION_CLOSEST)
 
-                                val fos = FileOutputStream(file)
-                                fos.write(bitmapData)
-                                fos.flush()
-                                fos.close()
-                            }
-                            listener.isBoo = true
-                        }.start()
-                    }
+                            val bos = ByteArrayOutputStream()
+                            bitmap.compress(Bitmap.CompressFormat.PNG, 90, bos)
+                            val bitmapData = bos.toByteArray()
+
+                            val fos = FileOutputStream(file)
+                            fos.write(bitmapData)
+                            fos.flush()
+                            fos.close()
+                        }
+                        listener.isBoo = true
+                    }.start()
                 }
             }
         }
