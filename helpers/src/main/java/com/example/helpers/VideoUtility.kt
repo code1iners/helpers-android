@@ -9,18 +9,17 @@ import java.io.FileOutputStream
 
 class VideoUtility {
     companion object {
-
+        // note. thumbnail manager definition
         class ThumbnailManager {
             companion object {
                 val TAG = ThumbnailManager::class.simpleName
                 val listener: BooleanVariable = BooleanVariable()
                 var directory: File? = null
                 var fileList: ArrayList<File>? = null
-                // note. const vars
-                val FILE_EXTENSION_PNG = ".png"
-                val FILE_UNIT_SEC = "sec"
+                var fileExtension = ".png"
+                var fileUnit = "sec"
 
-                fun extract(directoryPath: String, filePath: String) {
+                fun extract(filePath: String) {
                     fileList = ArrayList()
                     val manager: MediaMetadataRetriever = MediaMetadataRetriever()
                     manager.setDataSource(filePath)
@@ -29,18 +28,12 @@ class VideoUtility {
                     Log.i(TAG, "duration:$duration, durationBySec:$durationBySec")
 
                     // note. path null check
-                    if (directoryPath.isNullOrEmpty()) return
-
-                    // note. set file directory
-                    directory = File(directoryPath)
-                    directory!!.mkdirs()
+                    if (!directory!!.exists()) directory!!.mkdirs()
 
                     Thread {
                         for (sec in 0 until durationBySec) {
                             // note. set file name
-                            val fileExtension = FILE_EXTENSION_PNG
-                            val fileUnit = FILE_UNIT_SEC
-                            val fileName = FileManager.Companion.GenerateFileName.asTime() + sec + fileUnit + fileExtension
+                            val fileName = FileManager.Companion.GenerateFileName.asTime() + sec + Companion.fileUnit + Companion.fileExtension
                             val file = File(directory, fileName)
                             file.createNewFile()
                             fileList!!.add(file)
