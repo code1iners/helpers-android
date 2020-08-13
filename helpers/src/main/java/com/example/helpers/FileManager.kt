@@ -7,6 +7,8 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.util.Log
+import com.jakewharton.threetenabp.AndroidThreeTen
+import org.threeten.bp.LocalDateTime
 import java.io.File
 import java.lang.Exception
 
@@ -107,6 +109,28 @@ class FileManager {
                 result = cursor?.getString(columnIndex!!)!!
             } catch (e: Exception) {e.printStackTrace()}
             return result
+        }
+
+        class GenerateFileName(private val context: Context) {
+            init {
+                AndroidThreeTen.init(context)
+            }
+            companion object {
+                fun asTime(): String? {
+                    var result: String? = null
+                    try {
+                        val time = LocalDateTime.now()
+                        val year = time.year.toString()
+                        val month = if (time.monthValue.toString().length < 2) "0" + time.monthValue.toString() else time.monthValue.toString()
+                        val day = if (time.dayOfMonth.toString().length < 2) "0" + time.dayOfMonth.toString() else time.dayOfMonth.toString()
+                        val hour = if (time.hour.toString().length < 2) "0" + time.hour.toString() else time.hour.toString()
+                        val minute = if (time.minute.toString().length < 2) "0" + time.minute.toString() else time.minute.toString()
+                        val second = if (time.second.toString().length < 2) "0" + time.second.toString() else time.second.toString()
+                        result = year + month + day + hour + minute + second + "_"
+                    } catch (e: Exception) {e.printStackTrace()}
+                    return result
+                }
+            }
         }
     }
 }
