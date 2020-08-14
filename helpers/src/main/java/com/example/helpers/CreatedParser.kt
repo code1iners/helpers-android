@@ -58,7 +58,7 @@ class DataCreatedParser {
                         result = this.hour.toString() + "시간 전"
                     }
                 } else {
-                    result = this.minute.toString() + "분 전"
+                    result = if (this.minute!! < 1) "방금" else this.minute.toString() + "분 전"
                 }
             }
         } catch (e: Exception) {e.printStackTrace()}
