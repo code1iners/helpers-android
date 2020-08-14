@@ -25,13 +25,18 @@ class VideoUtility {
                     manager.setDataSource(filePath)
                     val duration = manager.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
                     val durationBySec = duration.toInt() / 1000
+                    val division = durationBySec / 2
+                    val timeList: ArrayList<Int> = ArrayList()
+                    timeList.add(division - division / 2)
+                    timeList.add(division)
+                    timeList.add(division + division / 2)
                     Log.i(TAG, "duration:$duration, durationBySec:$durationBySec")
 
                     // note. path null check
                     if (!directory!!.exists()) directory!!.mkdirs()
 
                     Thread {
-                        for (sec in 0 until durationBySec) {
+                        for (sec in timeList) {
                             // note. set file name
                             val fileName = FileManager.Companion.GenerateFileName.asTime() + sec + Companion.fileUnit + Companion.fileExtension
                             val file = File(directory, fileName)
