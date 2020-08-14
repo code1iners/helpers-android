@@ -6,9 +6,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class DataCreatedParser {
+class CreatedParser {
     companion object {
-        val TAG = DataCreatedParser::class.simpleName
+        val TAG = CreatedParser::class.simpleName
     }
 
     // note. result var
