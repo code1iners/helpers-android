@@ -4,9 +4,7 @@ import android.app.Activity
 import android.content.pm.PackageManager
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
-import java.util.jar.Manifest
 
 class PermissionManager {
     object RequestCode {
