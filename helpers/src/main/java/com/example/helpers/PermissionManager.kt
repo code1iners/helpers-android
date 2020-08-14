@@ -6,25 +6,29 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
+import java.util.jar.Manifest
 
 class PermissionManager {
+    object RequestCode {
+        val WRITE_EXTERNAL_STORAGE = 100
+        val INTERNET = 101
+        val CAMERA = 102
+        val READ_EXTERNAL_STORAGE = 103
+        val RECORD_AUDIO = 104
+        val BROADCAST_STICKY = 105
+        val MODIFY_AUDIO_SETTINGS = 106
+        val BLUETOOTH = 107
+        val BLUETOOTH_ADMIN = 108
+        val ACCESS_COARSE_LOCATION = 109
+        val REQUEST_IGNORE_BATTERY_OPTIMIZATIONS = 110
+        val RECEIVE_BOOT_COMPLETED = 111
+        val FOREGROUND_SERVICE = 112
+        val WAKE_LOCK = 113
+        val ACCESS_NETWORK_STATE = 114
+    }
+
     companion object {
         val TAG = PermissionManager::class.simpleName
-        val REQUEST_CODE_WRITE_EXTERNAL_STORAGE = 100
-        val REQUEST_CODE_INTERNET = 101
-        val REQUEST_CODE_CAMERA = 102
-        val REQUEST_CODE_READ_EXTERNAL_STORAGE = 103
-        val REQUEST_CODE_RECORD_AUDIO = 104
-        val REQUEST_CODE_BROADCAST_STICKY = 105
-        val REQUEST_CODE_MODIFY_AUDIO_SETTINGS = 106
-        val REQUEST_CODE_BLUETOOTH = 107
-        val REQUEST_CODE_BLUETOOTH_ADMIN = 108
-        val REQUEST_CODE_ACCESS_COARSE_LOCATION = 109
-        val REQUEST_CODE_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS = 110
-        val REQUEST_CODE_RECEIVE_BOOT_COMPLETED = 111
-        val REQUEST_CODE_FOREGROUND_SERVICE = 112
-        val REQUEST_CODE_WAKE_LOCK = 113
-        val REQUEST_CODE_ACCESS_NETWORK_STATE = 114
 
         fun checkPermission(activity: Activity, view: View, permission: String): Boolean {
             Log.w(TAG, object:Any(){}.javaClass.enclosingMethod!!.name)
@@ -48,7 +52,23 @@ class PermissionManager {
                 if (activity.shouldShowRequestPermissionRationale(permission)) {
                     val snack = Snackbar.make(view, "해당 기능을 사용하기 위해서는 권한이 필요합니다.", Snackbar.LENGTH_INDEFINITE)
                     snack.setAction("설정") {
-                        activity.requestPermissions(arrayOf(permission), REQUEST_CODE_WRITE_EXTERNAL_STORAGE)
+                        when (permission) {
+                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE -> {activity.requestPermissions(arrayOf(permission), RequestCode.WRITE_EXTERNAL_STORAGE)}
+                            android.Manifest.permission.INTERNET -> {activity.requestPermissions(arrayOf(permission), RequestCode.INTERNET)}
+                            android.Manifest.permission.CAMERA -> {activity.requestPermissions(arrayOf(permission), RequestCode.CAMERA)}
+                            android.Manifest.permission.READ_EXTERNAL_STORAGE -> {activity.requestPermissions(arrayOf(permission), RequestCode.READ_EXTERNAL_STORAGE)}
+                            android.Manifest.permission.RECORD_AUDIO -> {activity.requestPermissions(arrayOf(permission), RequestCode.RECORD_AUDIO)}
+                            android.Manifest.permission.BROADCAST_STICKY -> {activity.requestPermissions(arrayOf(permission), RequestCode.BROADCAST_STICKY)}
+                            android.Manifest.permission.MODIFY_AUDIO_SETTINGS -> {activity.requestPermissions(arrayOf(permission), RequestCode.MODIFY_AUDIO_SETTINGS)}
+                            android.Manifest.permission.BLUETOOTH -> {activity.requestPermissions(arrayOf(permission), RequestCode.BLUETOOTH)}
+                            android.Manifest.permission.BLUETOOTH_ADMIN -> {activity.requestPermissions(arrayOf(permission), RequestCode.BLUETOOTH_ADMIN)}
+                            android.Manifest.permission.ACCESS_COARSE_LOCATION -> {activity.requestPermissions(arrayOf(permission), RequestCode.ACCESS_COARSE_LOCATION)}
+                            android.Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS -> {activity.requestPermissions(arrayOf(permission), RequestCode.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)}
+                            android.Manifest.permission.RECEIVE_BOOT_COMPLETED -> {activity.requestPermissions(arrayOf(permission), RequestCode.RECEIVE_BOOT_COMPLETED)}
+                            android.Manifest.permission.FOREGROUND_SERVICE -> {activity.requestPermissions(arrayOf(permission), RequestCode.FOREGROUND_SERVICE)}
+                            android.Manifest.permission.WAKE_LOCK -> {activity.requestPermissions(arrayOf(permission), RequestCode.WAKE_LOCK)}
+                            android.Manifest.permission.ACCESS_NETWORK_STATE -> {activity.requestPermissions(arrayOf(permission), RequestCode.ACCESS_NETWORK_STATE)}
+                        }
                         snack.dismiss()
                     }
                     snack.show()
