@@ -10,21 +10,21 @@ import java.util.jar.Manifest
 
 class PermissionManager {
     object RequestCode {
-        val WRITE_EXTERNAL_STORAGE = 100
-        val INTERNET = 101
-        val CAMERA = 102
-        val READ_EXTERNAL_STORAGE = 103
-        val RECORD_AUDIO = 104
-        val BROADCAST_STICKY = 105
-        val MODIFY_AUDIO_SETTINGS = 106
-        val BLUETOOTH = 107
-        val BLUETOOTH_ADMIN = 108
-        val ACCESS_COARSE_LOCATION = 109
-        val REQUEST_IGNORE_BATTERY_OPTIMIZATIONS = 110
-        val RECEIVE_BOOT_COMPLETED = 111
-        val FOREGROUND_SERVICE = 112
-        val WAKE_LOCK = 113
-        val ACCESS_NETWORK_STATE = 114
+        const val WRITE_EXTERNAL_STORAGE = 100
+        const val INTERNET = 101
+        const val CAMERA = 102
+        const val READ_EXTERNAL_STORAGE = 103
+        const val RECORD_AUDIO = 104
+        const val BROADCAST_STICKY = 105
+        const val MODIFY_AUDIO_SETTINGS = 106
+        const val BLUETOOTH = 107
+        const val BLUETOOTH_ADMIN = 108
+        const val ACCESS_COARSE_LOCATION = 109
+        const val REQUEST_IGNORE_BATTERY_OPTIMIZATIONS = 110
+        const val RECEIVE_BOOT_COMPLETED = 111
+        const val FOREGROUND_SERVICE = 112
+        const val WAKE_LOCK = 113
+        const val ACCESS_NETWORK_STATE = 114
     }
 
     companion object {
