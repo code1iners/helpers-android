@@ -77,6 +77,22 @@ class PermissionManager {
             } catch (e: Exception) {e.printStackTrace()}
         }
 
+        fun checkPermissionSimply(activity: Activity, view: View, permission: String): Boolean {
+            Log.w(TAG, object:Any(){}.javaClass.enclosingMethod!!.name)
+            try {
+                if (activity.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED) {
+                    Log.i(TAG, "이미 권한을 가지고 있습니다.")
+                    return true
+                }
+                else {
+                    Log.e(TAG, "권한이 없습니다.")
+                    requestPermissionSimply(activity, view, permission)
+                    return false
+                }
+            } catch (e: Exception) {e.printStackTrace()}
+            return false
+        }
+
         fun requestPermissionSimply(activity: Activity, view: View, permission: String) {
             Log.w(TAG, object:Any(){}.javaClass.enclosingMethod!!.name)
             try {
