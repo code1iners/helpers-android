@@ -66,9 +66,9 @@ class CustomTimer : TimerTask() {
                 min++
                 // note. update minutes
                 if (min < 10) {
-                    handler.post(Runnable { viewMinute.setText("0$min") })
+                    handler.post(Runnable { viewMinute.text = "0$min" })
                 } else {
-                    handler.post(Runnable { viewMinute.setText(min.toString()) })
+                    handler.post(Runnable { viewMinute.text = min.toString() })
                 }
                 if (min > 59) {
                     min = 0
@@ -76,13 +76,13 @@ class CustomTimer : TimerTask() {
                     // note. update hours
                     if (hour < 10) {
                         handler.post(Runnable {
-                            viewHour.setText("0$hour")
-                            viewMinute.setText("0$min")
+                            viewHour.text = "0$hour"
+                            viewMinute.text = "0$min"
                         })
                     } else {
                         handler.post(Runnable {
-                            viewHour.setText(hour.toString())
-                            viewMinute.setText("0$min")
+                            viewHour.text = hour.toString()
+                            viewMinute.text = "0$min"
                         })
                     }
                     if (hour > 23) {
@@ -92,9 +92,9 @@ class CustomTimer : TimerTask() {
             } else {
                 // note. update seconds
                 if (sec < 10) {
-                    handler.post(Runnable { viewSecond.setText("0$sec") })
+                    handler.post(Runnable { viewSecond.text = "0$sec" })
                 } else {
-                    handler.post(Runnable { viewSecond.setText(sec.toString()) })
+                    handler.post(Runnable { viewSecond.text = sec.toString() })
                 }
             }
         } catch (e: Exception) {e.printStackTrace()}
