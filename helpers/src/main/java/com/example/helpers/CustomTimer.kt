@@ -28,6 +28,7 @@ class CustomTimer {
 
         // note. handler
         private lateinit var handler: Handler
+        private val cycleTime: Long = 1000
 
         fun init() {
             Log.w(TAG, object : Any() {}.javaClass.enclosingMethod!!.name)
@@ -50,7 +51,7 @@ class CustomTimer {
             } catch (e: Exception) {e.printStackTrace()}
         }
 
-        fun start(cycleTime: Long) {
+        fun start() {
             if (this.running) this.init()
             else Timer().schedule(this, 0, cycleTime)
         }
