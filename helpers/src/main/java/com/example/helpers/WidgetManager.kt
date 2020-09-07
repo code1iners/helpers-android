@@ -5,6 +5,8 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewTreeObserver
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.NumberPicker
@@ -13,6 +15,33 @@ class WidgetManager {
     class AnimationManager {
         val TAG = AnimationManager::class.simpleName
 
+        fun getFadeOutUp(context: Context): Animation{
+            return AnimationUtils.loadAnimation(context, R.anim.fade_out_up_001)
+        }
+
+        fun getFadeInDown(context: Context): Animation {
+            return AnimationUtils.loadAnimation(context, R.anim.fade_in_down_001)
+        }
+
+        fun getHeartBeating(context: Context): Animation {
+            return AnimationUtils.loadAnimation(context, R.anim.heart_beating_001)
+        }
+
+        fun getMoveLeft(context: Context): Animation {
+            return AnimationUtils.loadAnimation(context, R.anim.move_left_001)
+        }
+
+        fun getMoveRight(context: Context): Animation {
+            return AnimationUtils.loadAnimation(context, R.anim.move_right_001)
+        }
+
+        fun getRemoveLeft(context: Context): Animation {
+            return AnimationUtils.loadAnimation(context, R.anim.remove_left_001)
+        }
+
+        fun getBlink(context: Context): Animation {
+            return AnimationUtils.loadAnimation(context, R.anim.blink)
+        }
 
     }
 
