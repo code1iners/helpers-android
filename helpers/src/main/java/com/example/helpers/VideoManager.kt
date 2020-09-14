@@ -1,6 +1,7 @@
 package com.example.helpers
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.media.MediaMetadataRetriever
 import android.util.Log
 import android.widget.Toast
@@ -13,20 +14,38 @@ class VideoManager {
 
     class Rotate(private val activity: Activity) {
 
-        private var inputFilePath: String? = null
-        private var outputDirPath: String? = null
-        private var outputFilePath: String? = null
-        private var resultFilePath: String? = null
-        var listener: OnRotateListener? = null
+        // note. file path
+        var inputFilePath: String? = null
+        var outputDirPath: String? = null
+        var outputFilePath: String? = null
+        var resultFilePath: String? = null
+        // note. listener
+        var onRotateListener: OnRotateListener? = null
+        // note. dialog
+        var dialogTitle: String = "The video is rotating.."
+        var dialogMessage: String? = null
 
-        fun setOutputFilePath(directoryPath: String, filePath: String) {
-            this.outputDirPath = directoryPath
-            this.outputFilePath = filePath
-        }
-
-        fun setInputFilePath(inputFilePath: String) {
-            this.inputFilePath = inputFilePath
-        }
+//        fun setDialogText(title: String, message: String) {
+//            this.dialogTitle = title
+//            this.dialogMessage = message
+//        }
+//
+//        fun setDialogTitle(title: String) {
+//            this.dialogTitle = title
+//        }
+//
+//        fun setDialogMessage(message: String) {
+//            this.dialogMessage = message
+//        }
+//
+//        fun setOutputFilePath(directoryPath: String, filePath: String) {
+//            this.outputDirPath = directoryPath
+//            this.outputFilePath = filePath
+//        }
+//
+//        fun setInputFilePath(inputFilePath: String) {
+//            this.inputFilePath = inputFilePath
+//        }
 
         fun start() {
             // note. get video's changed angle
@@ -63,7 +82,7 @@ class VideoManager {
         }
 
         private fun rotate(angle: Int) {
-            if (angle == 0) listener!!.rotateCompleted(null)
+            if (angle == 0) onRotateListener!!.rotateCompleted(null)
             else createRotatedNewFile()
         }
 
@@ -76,6 +95,15 @@ class VideoManager {
                     File(outputDirPath).mkdirs()
                 }
 
+                // note. init progress dialog
+                val d = ProgressDialog(activity)
+                d.setTitle(dialogTitle)
+                if (!dialogMessage.isNullOrBlank()) d.setMessage(dialogMessage)
+                d.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL)
+                d.setCanceledOnTouchOutside(false)
+                d.setCancelable(false)
+                d.show()
+
                 // note. set result file path
                 resultFilePath = outputDirPath + File.separator + outputFilePath
                 Log.i(TAG, "resultFilePath:$resultFilePath")
@@ -86,24 +114,28 @@ class VideoManager {
                         .listener(object: Mp4Composer.Listener {
                             override fun onProgress(progress: Double) {
                                 Log.d(TAG, "progress:$progress")
+                                d.progress = (progress * 100).toInt()
                             }
 
                             override fun onCompleted() {
                                 Log.i(TAG, object:Any(){}.javaClass.enclosingMethod!!.name)
                                 try {
-                                    listener!!.rotateCompleted(resultFilePath!!)
+                                    onRotateListener!!.rotateCompleted(resultFilePath!!)
+                                    d.dismiss()
                                 } catch (e: Exception) {e.printStackTrace()}
                             }
 
                             override fun onCanceled() {
                                 Log.w(TAG, object:Any(){}.javaClass.enclosingMethod!!.name)
                                 try {
-                                    listener!!.rotateFailed()
+                                    onRotateListener!!.rotateFailed()
+                                    d.dismiss()
                                 } catch (e: Exception) {e.printStackTrace()}
                             }
 
                             override fun onFailed(exception: java.lang.Exception?) {
                                 Log.e(TAG, "${object:Any(){}.javaClass.enclosingMethod!!.name}\n$exception")
+                                d.dismiss()
                             }
 
                         })
@@ -112,9 +144,9 @@ class VideoManager {
             } catch (e: Exception) {e.printStackTrace()}
         }
 
-        fun setOnRotateListener(listener: OnRotateListener) {
-            this.listener = listener
-        }
+//        fun setOnRotateListener(listener: OnRotateListener) {
+//            this.listener = listener
+//        }
 
         interface OnRotateListener {
             fun rotateCompleted(resultFilePath: String?)
