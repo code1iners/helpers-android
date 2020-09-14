@@ -63,7 +63,8 @@ class VideoManager {
         }
 
         private fun rotate(angle: Int) {
-            if (angle != 0) createRotatedNewFile()
+            if (angle == 0) listener!!.rotateCompleted(null)
+            else createRotatedNewFile()
         }
 
         private fun createRotatedNewFile() {
@@ -116,7 +117,7 @@ class VideoManager {
         }
 
         interface OnRotateListener {
-            fun rotateCompleted(resultFilePath: String)
+            fun rotateCompleted(resultFilePath: String?)
             fun rotateFailed()
         }
 
