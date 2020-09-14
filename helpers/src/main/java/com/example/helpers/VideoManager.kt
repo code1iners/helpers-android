@@ -25,28 +25,6 @@ class VideoManager {
         var dialogTitle: String = "The video is rotating.."
         var dialogMessage: String? = null
 
-//        fun setDialogText(title: String, message: String) {
-//            this.dialogTitle = title
-//            this.dialogMessage = message
-//        }
-//
-//        fun setDialogTitle(title: String) {
-//            this.dialogTitle = title
-//        }
-//
-//        fun setDialogMessage(message: String) {
-//            this.dialogMessage = message
-//        }
-//
-//        fun setOutputFilePath(directoryPath: String, filePath: String) {
-//            this.outputDirPath = directoryPath
-//            this.outputFilePath = filePath
-//        }
-//
-//        fun setInputFilePath(inputFilePath: String) {
-//            this.inputFilePath = inputFilePath
-//        }
-
         fun start() {
             // note. get video's changed angle
             val angle = getVideoChangedAngle()
@@ -143,10 +121,6 @@ class VideoManager {
 
             } catch (e: Exception) {e.printStackTrace()}
         }
-
-//        fun setOnRotateListener(listener: OnRotateListener) {
-//            this.listener = listener
-//        }
 
         interface OnRotateListener {
             fun rotateCompleted(resultFilePath: String?)
