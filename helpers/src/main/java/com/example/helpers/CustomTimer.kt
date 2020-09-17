@@ -1,7 +1,6 @@
 package com.example.helpers
 
 import android.os.Handler
-import android.util.Log
 import android.widget.TextView
 import java.util.*
 
@@ -11,15 +10,17 @@ class CustomTimer {
     class Increase : TimerTask() {
         private val TAG = Increase::class.simpleName
 
+        lateinit var onTimerIncreaseListener: OnTimerIncreaseListener
+
         // note. for initialization
         var firstTime: Boolean = false
-        var restart: Boolean = false
-        var running: Boolean = false
+        var isRunning: Boolean = false
 
         // note. value
-        private var sec: Int = 0
-        private var min: Int = 0
+        private var second: Int = 0
+        private var minute: Int = 0
         private var hour: Int = 0
+        var triggerSecond: Int = -1
 
         // note. views
         lateinit var viewSecond: TextView
@@ -27,81 +28,95 @@ class CustomTimer {
         lateinit var viewHour: TextView
 
         // note. handler
-        private lateinit var handler: Handler
+        private val handler: Handler = Handler()
         private val cycleTime: Long = 1000
 
-        fun init() {
-            Log.w(TAG, object : Any() {}.javaClass.enclosingMethod!!.name)
+        fun setViews(sec: TextView?, min: TextView?, hour: TextView?) {
             try {
-                handler = Handler()
-
-                Handler().post {
-                    viewSecond.text = "00"
-                    viewMinute.text = "00"
-                    viewHour.text = "00"
-                }
-            } catch (e: Exception) {e.printStackTrace()}
-        }
-
-        fun setViews(sec: TextView, min: TextView, hour: TextView) {
-            try {
-                this.viewSecond = sec
-                this.viewMinute = min
-                this.viewHour = hour
+                if (sec != null) this.viewSecond = sec
+                if (min != null) this.viewMinute = min
+                if (hour != null) this.viewHour = hour
             } catch (e: Exception) {e.printStackTrace()}
         }
 
         fun start() {
-            if (this.running) this.init()
-            else Timer().schedule(this, 0, cycleTime)
+            Timer().schedule(this, 0, cycleTime)
+            isRunning = true
+        }
+
+        private fun triggerAnEvent() {
+            try {
+                if (second == triggerSecond) {
+                    onTimerIncreaseListener.timerTriggerEvent(triggerSecond)
+                }
+
+            } catch (e: Exception) {e.printStackTrace()}
+        }
+
+        private fun setValuesBySecond() {
+            setValueSecond()
+            setValueMinute()
+            setValueHour()
+        }
+
+        private fun setValueSecond() {
+            try {
+                if (viewSecond == null) return
+
+                var second = (if (this.second >= 60) this.second % 60 else this.second).toString()
+                if (second.toInt() < 10) second = "0$second"
+//                Log.d(TAG, "second:$second")
+
+                handler.post {
+                    viewSecond.text = second
+                }
+            } catch (e: Exception) {e.printStackTrace()}
+        }
+
+        private fun setValueMinute() {
+            try {
+                if (viewMinute == null) return
+
+                this.minute = this.second / 60
+                var minute = (if (this.minute >= 60) this.minute % 60 else this.minute).toString()
+                if (minute.toInt() < 10) minute = "0$minute"
+//                Log.d(TAG, "minute:$minute")
+
+                handler.post {
+                    viewMinute.text = minute
+                }
+
+            } catch (e: Exception) {e.printStackTrace()}
+        }
+
+        private fun setValueHour() {
+            try {
+                if (viewMinute == null) return
+
+                this.hour = this.minute / 60
+                var hour = (if (this.hour >= 60) this.hour % 60 else this.hour).toString()
+                if (hour.toInt() < 10) hour = "0$hour"
+//                Log.d(TAG, "hour:$hour")
+
+                handler.post {
+                    viewHour.text = hour
+                }
+            } catch (e: Exception) {e.printStackTrace()}
         }
 
         override fun run() {
-
             try {
-                if (!firstTime) {
-                    running = true
-                    firstTime = true
-                }
-
-                sec++
-                if (sec > 59) {
-                    sec = 0
-                    min++
-                    // note. update minutes
-                    if (min < 10) {
-                        handler.post(Runnable { viewMinute.text = "0$min" })
-                    } else {
-                        handler.post(Runnable { viewMinute.text = min.toString() })
-                    }
-                    if (min > 59) {
-                        min = 0
-                        hour++
-                        // note. update hours
-                        if (hour < 10) {
-                            handler.post(Runnable {
-                                viewHour.text = "0$hour"
-                                viewMinute.text = "0$min"
-                            })
-                        } else {
-                            handler.post(Runnable {
-                                viewHour.text = hour.toString()
-                                viewMinute.text = "0$min"
-                            })
-                        }
-                        if (hour > 23) {
-                            init()
-                        }
-                    }
-                } else {
-                    // note. update seconds
-                    if (sec < 10) {
-                        handler.post(Runnable { viewSecond.text = "0$sec" })
-                    } else {
-                        handler.post(Runnable { viewSecond.text = sec.toString() })
-                    }
-                }
+                // note. trigger an event
+                if (triggerSecond != -1) triggerAnEvent()
+                // note. set values
+                setValuesBySecond()
+                // note. decrease second value
+                second++
             } catch (e: Exception) {e.printStackTrace()}
+        }
+
+        interface OnTimerIncreaseListener {
+            fun timerTriggerEvent(setValue: Int)
         }
     }
 
@@ -109,10 +124,14 @@ class CustomTimer {
     class Decrease : TimerTask() {
         private val TAG = Decrease::class.simpleName
 
+        // note. listener
+        lateinit var onTimerDecreaseListener: OnTimerDecreaseListener
+
         // note. values
         private var second: Int = 0
         private var minute: Int = 0
         private var hour: Int = 0
+        var triggerSecond: Int = -1
 
         // note. views
         lateinit var viewSecond: TextView
@@ -120,88 +139,139 @@ class CustomTimer {
         lateinit var viewHour: TextView
 
         // note. other vars
-        private lateinit var handler: Handler
+        private val handler: Handler = Handler()
         private val cycleTime: Long = 1000
+        var isRunning: Boolean = false
 
-        fun init() {
-            Log.w(TAG, object:Any(){}.javaClass.enclosingMethod!!.name)
+        fun setViews(second: TextView?, minute: TextView?, hour: TextView?) {
             try {
-                handler = Handler()
-
-                Handler().post {
-                    viewSecond.text = "00"
-                    viewMinute.text = "00"
-                    viewHour.text = "00"
-                }
-
+                if (second != null) this.viewSecond = second
+                if (minute != null) this.viewMinute = minute
+                if (hour != null) this.viewHour = hour
             } catch (e: Exception) {e.printStackTrace()}
         }
 
-        fun setViews(second: TextView, minute: TextView, hour: TextView) {
-            try {
-                this.viewSecond = second
-                this.viewMinute = minute
-                this.viewHour = hour
-            } catch (e: Exception) {e.printStackTrace()}
-        }
-
-        fun setLimitTimeByMinute(minute: Int) {
+        fun setLimitTimeBySecond(inputSecond: Int) {
             try  {
+                // note. set second
+                second = inputSecond
+                // note. set minute by second
+                minute = second / 60
+                // note. set hour by second
+                hour = minute / 60
+            } catch (e: Exception) {e.printStackTrace()}
+        }
+
+        fun setLimitTimeByMinute(inputMinute: Int) {
+            try  {
+                // note. set minute
+                minute = inputMinute
                 // note. set second by minute
                 second = minute * 60
+                // note. set hour by minute
+                hour = minute / 60
 
+            } catch (e: Exception) {e.printStackTrace()}
+        }
+
+        fun setLimitTimeByHour(inputHour: Int) {
+            try  {
+                // note. set hour
+                hour = inputHour
+                // note. set minute by hour
+                minute = hour * 60
+                // note. set second by hour
+                second = minute * 60
             } catch (e: Exception) {e.printStackTrace()}
         }
 
         fun start() {
             Timer().schedule(this, 0, cycleTime)
+            isRunning = true
+        }
 
+        fun clear() {
+            try {
+                handler.post {
+                    viewSecond.text = "00"
+                    viewMinute.text = "00"
+                    viewHour.text = "00"
+                }
+            } catch(e: Exception) {e.printStackTrace()}
         }
 
         override fun run() {
             try {
-                if (second <= 0) return
-                // note. decrease second value
-                second--
+//                Log.d(TAG, "second:$second")
 
-                // note. set values
-                setSecond()
-                setMinute()
-                setHour()
+                if (second >= 0) {
+                    // note. trigger an event
+                    if (triggerSecond != -1) triggerAnEvent()
+                    // note. set values
+                    setValuesBySecond(second)
+                    // note. decrease second value
+                    second--
+                } else {
+                    onTimerDecreaseListener.timerStop()
+                }
+
             } catch (e: Exception) {e.printStackTrace()}
         }
 
-        private fun setSecond() {
+        private fun triggerAnEvent() {
             try {
-                this.second = second % 60
-                Log.i(TAG, "second:${this.second}")
+                if (second == triggerSecond) {
+                    onTimerDecreaseListener.timerTriggerEvent(triggerSecond)
+                }
+
+            } catch (e: Exception) {e.printStackTrace()}
+        }
+
+        private fun setValuesBySecond(second: Int) {
+            setSecondBySecond(second)
+            setMinuteBySecond(second)
+            setHourBySecond(second)
+        }
+
+        private fun setSecondBySecond(inputSecond: Int) {
+            try {
+                if (viewSecond == null) return
+
+                val second = inputSecond % 60
                 handler.post{
-                    if (this.second < 10) this.viewSecond.text = "0$second"
-                    else this.viewSecond.text = "$second"
+                    if (second < 10) viewSecond.text = "0${second}"
+                    else viewSecond.text = "${second}"
                 }
             } catch (e: Exception) {e.printStackTrace()}
         }
 
-        private fun setMinute() {
+        private fun setMinuteBySecond(inputSecond: Int) {
             try {
-                this.minute = second / 60
-                Log.i(TAG, "minute:${this.minute}")
+                if (viewMinute == null) return
+
+                val minute = inputSecond / 60
                 handler.post{
-                    if (this.minute < 10) this.viewMinute.text = "0$minute"
-                    else this.viewMinute.text = "$minute"
+                    if (minute < 10) viewMinute.text = "0$minute"
+                    else viewMinute.text = "$minute"
                 }
             } catch (e: Exception) {e.printStackTrace()}
         }
 
-        private fun setHour() {
+        private fun setHourBySecond(inputSecond: Int) {
             try {
-                this.hour = this.minute % 60
-                Log.i(TAG, "hour:${this.hour}")
+                if (viewHour == null) return
+
+                val hour = inputSecond / 600
                 handler.post{
-                    if (this.hour < 10) this.viewHour.text = "0$hour"
-                    else this.viewHour.text = "$hour"
+                    if (hour < 10) viewHour.text = "0$hour"
+                    else viewHour.text = "$hour"
                 }
             } catch (e: Exception) {e.printStackTrace()}
+        }
+
+        interface OnTimerDecreaseListener {
+            fun timerStop()
+            fun timerTriggerEvent(setValue: Int)
         }
     }
 }
