@@ -13,7 +13,6 @@ class CustomTimer {
         lateinit var onTimerIncreaseListener: OnTimerIncreaseListener
 
         // note. for initialization
-        var firstTime: Boolean = false
         var isRunning: Boolean = false
 
         // note. value
