@@ -1,5 +1,6 @@
 package com.example.helpers
 
+import android.annotation.SuppressLint
 import android.os.Handler
 import android.widget.TextView
 import java.util.*
@@ -8,12 +9,11 @@ class CustomTimer {
 
     // note. increase
     class Increase : TimerTask() {
-        private val TAG = Increase::class.simpleName
-
         lateinit var onTimerIncreaseListener: OnTimerIncreaseListener
 
         // note. for initialization
-        var isRunning: Boolean = false
+        var isStarted: Boolean = false
+        var isPause: Boolean = false
 
         // note. value
         private var second: Int = 0
@@ -40,7 +40,7 @@ class CustomTimer {
 
         fun start() {
             Timer().schedule(this, 0, cycleTime)
-            isRunning = true
+            isStarted = true
         }
 
         private fun triggerAnEvent() {
@@ -105,6 +105,8 @@ class CustomTimer {
 
         override fun run() {
             try {
+                // note. check is pause
+                if (isPause) return
                 // note. trigger an event
                 if (triggerSecond != -1) triggerAnEvent()
                 // note. set values
@@ -116,6 +118,10 @@ class CustomTimer {
 
         interface OnTimerIncreaseListener {
             fun timerTriggerEvent(setValue: Int)
+        }
+
+        companion object {
+            val TAG = Increase::class.simpleName
         }
     }
 
@@ -140,7 +146,8 @@ class CustomTimer {
         // note. other vars
         private val handler: Handler = Handler()
         private val cycleTime: Long = 1000
-        var isRunning: Boolean = false
+        var isStarted: Boolean = false
+        var isPause: Boolean = false
 
         fun setViews(second: TextView?, minute: TextView?, hour: TextView?) {
             try {
@@ -186,7 +193,7 @@ class CustomTimer {
 
         fun start() {
             Timer().schedule(this, 0, cycleTime)
-            isRunning = true
+            isStarted = true
         }
 
         fun clear() {
@@ -202,6 +209,8 @@ class CustomTimer {
         override fun run() {
             try {
 //                Log.d(TAG, "second:$second")
+
+                if (isPause) return
 
                 if (second >= 0) {
                     // note. trigger an event
@@ -232,14 +241,15 @@ class CustomTimer {
             setHourBySecond(second)
         }
 
+        @SuppressLint("SetTextI18n")
         private fun setSecondBySecond(inputSecond: Int) {
             try {
                 if (viewSecond == null) return
 
                 val second = inputSecond % 60
                 handler.post{
-                    if (second < 10) viewSecond.text = "0${second}"
-                    else viewSecond.text = "${second}"
+                    if (second < 10) viewSecond.text = "0$second"
+                    else viewSecond.text = "$second"
                 }
             } catch (e: Exception) {e.printStackTrace()}
         }
@@ -271,6 +281,10 @@ class CustomTimer {
         interface OnTimerDecreaseListener {
             fun timerStop()
             fun timerTriggerEvent(setValue: Int)
+        }
+
+        companion object {
+            val TAG = Decrease::class.simpleName
         }
     }
 }
