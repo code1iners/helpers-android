@@ -162,9 +162,9 @@ class CustomTimer {
                 // note. set second
                 second = inputSecond
                 // note. set minute by second
-                minute = second / 60
+                minute = 60 / second
                 // note. set hour by second
-                hour = minute / 60
+                hour = 60 / minute
             } catch (e: Exception) {e.printStackTrace()}
         }
 
@@ -173,7 +173,7 @@ class CustomTimer {
                 // note. set minute
                 minute = inputMinute
                 // note. set second by minute
-                second = minute * 60
+                second = 60 * minute
                 // note. set hour by minute
                 hour = minute / 60
 
@@ -216,7 +216,7 @@ class CustomTimer {
                     // note. trigger an event
                     if (triggerSecond != -1) triggerAnEvent()
                     // note. set values
-                    setValuesBySecond(second)
+                    setValues(second)
                     // note. decrease second value
                     second--
                 } else {
@@ -235,30 +235,32 @@ class CustomTimer {
             } catch (e: Exception) {e.printStackTrace()}
         }
 
-        private fun setValuesBySecond(second: Int) {
-            setSecondBySecond(second)
-            setMinuteBySecond(second)
-            setHourBySecond(second)
+        private fun setValues(second: Int) {
+            setSecond()
+            setMinute()
+            setHour()
         }
 
         @SuppressLint("SetTextI18n")
-        private fun setSecondBySecond(inputSecond: Int) {
+        private fun setSecond() {
             try {
                 if (viewSecond == null) return
 
-                val second = inputSecond % 60
+                val result = second % 60
+
                 handler.post{
-                    if (second < 10) viewSecond.text = "0$second"
-                    else viewSecond.text = "$second"
+                    if (result < 10) viewSecond.text = "0$result"
+                    else viewSecond.text = "$result"
                 }
             } catch (e: Exception) {e.printStackTrace()}
         }
 
-        private fun setMinuteBySecond(inputSecond: Int) {
+        private fun setMinute() {
             try {
                 if (viewMinute == null) return
 
-                val minute = inputSecond / 60
+                minute = second / 60
+
                 handler.post{
                     if (minute < 10) viewMinute.text = "0$minute"
                     else viewMinute.text = "$minute"
@@ -266,11 +268,12 @@ class CustomTimer {
             } catch (e: Exception) {e.printStackTrace()}
         }
 
-        private fun setHourBySecond(inputSecond: Int) {
+        private fun setHour() {
             try {
                 if (viewHour == null) return
 
-                val hour = inputSecond / 600
+                hour = minute / 60
+
                 handler.post{
                     if (hour < 10) viewHour.text = "0$hour"
                     else viewHour.text = "$hour"
