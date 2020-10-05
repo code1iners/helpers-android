@@ -17,6 +17,17 @@ class ScreenManager {
             } catch (e: Exception) {e.printStackTrace()}
         }
 
+        fun fullScreen(activity: Activity) {
+            val window = activity.window
+            val winParams = window.attributes
+            winParams.flags =
+                winParams.flags and WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS.inv()
+            window.attributes = winParams
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
+
         fun alwaysOnWhenLocked(activity: Activity) {
             try {
                 activity.window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
