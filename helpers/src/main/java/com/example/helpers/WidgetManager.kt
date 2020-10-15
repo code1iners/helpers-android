@@ -43,6 +43,14 @@ class WidgetManager {
             fun getBlink(context: Context): Animation {
                 return AnimationUtils.loadAnimation(context, R.anim.blink)
             }
+
+            fun fadeIn(context: Context): Animation {
+                return AnimationUtils.loadAnimation(context, R.anim.fade_in)
+            }
+
+            fun fadeOut(context: Context): Animation {
+                return AnimationUtils.loadAnimation(context, R.anim.fade_out)
+            }
         }
     }
 
