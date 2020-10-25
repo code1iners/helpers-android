@@ -13,7 +13,7 @@ import android.widget.ImageButton
 import android.widget.NumberPicker
 import android.widget.TextView
 
-class WidgetManager {
+object WidgetManager {
     class AnimationManager {
         companion object {
             val TAG = AnimationManager::class.simpleName
@@ -120,15 +120,10 @@ class WidgetManager {
             return null
         }
     }
-
-    class Measure {
-
-        // note. measure
-        fun Float.toDp(context: Context) : Int = (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this, context.resources.displayMetrics)).toInt()
-        fun Int.toDp(context: Context) : Int = (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), context.resources.displayMetrics)).toInt()
-    }
     
-    fun EditText.setMaxLength(maxLength: Int){
-        filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxLength))
+    class EditTextManager {
+        fun setMaxLength(editText: EditText, maxLength: Int) {
+            editText.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxLength))
+        }
     }
 }
