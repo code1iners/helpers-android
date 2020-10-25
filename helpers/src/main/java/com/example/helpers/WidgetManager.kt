@@ -122,8 +122,10 @@ object WidgetManager {
     }
     
     class EditTextManager {
-        fun setMaxLength(editText: EditText, maxLength: Int) {
-            editText.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxLength))
+        companion object {
+            fun setMaxLength(editText: EditText, maxLength: Int) {
+                editText.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxLength))
+            }
         }
     }
 }
