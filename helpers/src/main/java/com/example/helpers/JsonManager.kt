@@ -12,6 +12,10 @@ object JsonManager {
     fun jsonToJson(parameter: JSONObject): JsonObject {
         return JsonParser().parse(parameter.toString()) as JsonObject
     }
+    
+    fun stringToJson(parameter: String): JsonObject {
+        return JsonParser().parse(parameter) as JsonObject
+    }
 
     fun resultOnlyOk(): JsonObject {
         return jsonToJson(JSONObject().apply {
