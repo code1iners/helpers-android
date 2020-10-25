@@ -1,6 +1,7 @@
 package com.example.helpers
 
 import android.content.Context
+import android.text.InputFilter
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
@@ -10,6 +11,7 @@ import android.view.animation.AnimationUtils
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.NumberPicker
+import android.widget.TextView
 
 class WidgetManager {
     class AnimationManager {
@@ -124,5 +126,9 @@ class WidgetManager {
         // note. measure
         fun Float.toDp(context: Context) : Int = (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this, context.resources.displayMetrics)).toInt()
         fun Int.toDp(context: Context) : Int = (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), context.resources.displayMetrics)).toInt()
+    }
+    
+    fun EditText.setMaxLength(maxLength: Int){
+        filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxLength))
     }
 }
