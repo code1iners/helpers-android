@@ -19,7 +19,7 @@ object JsonManager {
 
     fun resultOnlyOk(): JsonObject {
         return jsonToJson(JSONObject().apply {
-            this.put(RESPONSE_STATUS, HTTP_200_OK)
+            this.put("status", HTTP_200_OK)
         })
     }
 }
