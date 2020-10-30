@@ -1,8 +1,8 @@
 package com.example.helpers
 
 object Status {
-    const val RESPONSE_STATUS = "RESPONSE_STATUS"
-    const val RESPONSE_MESSAGE = "RESPONSE_MESSAGE"
+    const val RESPONSE_STATUS = "status"
+    const val RESPONSE_MESSAGE = "message"
     
     const val HTTP_100_CONTINUE = 100
     const val HTTP_101_SWITCHING_PROTOCOLS = 101
