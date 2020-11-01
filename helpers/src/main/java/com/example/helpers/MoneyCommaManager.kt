@@ -6,7 +6,7 @@ class MoneyCommaManager {
 	companion object {
 		val TAG = MoneyCommaManager::class.simpleName
 		
-		fun priceUnitParser(input: String): String {
+		fun parse(input: String): String {
 			Log.w(TAG, object:Any(){}.javaClass.enclosingMethod!!.name)
 			var output = input
 			try {
