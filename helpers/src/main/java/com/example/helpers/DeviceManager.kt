@@ -10,8 +10,7 @@ class DeviceManager {
         val TAG = DeviceManager::class.simpleName
 
         fun getDeviceVersion(): Int {
-            Log.w(TAG, object:Any(){}.javaClass.enclosingMethod!!.name)
-            return android.os.Build.VERSION.SDK_INT
+            return Build.VERSION.SDK_INT
         }
         
         fun getDeviceId(context: Context): String {
