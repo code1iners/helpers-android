@@ -5,29 +5,54 @@ import android.view.View
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 
-class NoticeManager {
-    companion object {
-        val TAG = NoticeManager::class.simpleName
-
-        fun toastShort(context: Context, message: String) {
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+fun View.snackbarForShort(message: String) {
+    Snackbar.make(
+            this,
+            message,
+            Snackbar.LENGTH_SHORT
+    ).also { snackbar ->
+        snackbar.setAction("OK") {
+            snackbar.dismiss()
         }
+    }.show()
+}
 
-        fun toastLong(context: Context, message: String) {
-            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+fun View.snackbarForLong(message: String) {
+    Snackbar.make(
+            this,
+            message,
+            Snackbar.LENGTH_LONG
+    ).also { snackbar ->
+        snackbar.setAction("OK") {
+            snackbar.dismiss()
         }
+    }.show()
+}
 
-        fun snackShort(view: View, message: String): Snackbar {
-            return Snackbar.make(view, message, Snackbar.LENGTH_SHORT)
+fun View.snackbarForIndefinite(message: String) {
+    Snackbar.make(
+            this,
+            message,
+            Snackbar.LENGTH_INDEFINITE
+    ).also { snackbar ->
+        snackbar.setAction("OK") {
+            snackbar.dismiss()
         }
+    }.show()
+}
 
-        fun snackLong(view: View, message: String): Snackbar {
-            return Snackbar.make(view, message, Snackbar.LENGTH_LONG)
-        }
+fun Context.toastForShort(message: String) {
+    Toast.makeText(
+            this,
+            message,
+            Toast.LENGTH_SHORT
+    ).show()
+}
 
-        fun snackIndefinite(view: View, message: String): Snackbar {
-            return Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE)
-        }
-
-    }
+fun Context.toastForLong(message: String) {
+    Toast.makeText(
+            this,
+            message,
+            Toast.LENGTH_LONG
+    ).show()
 }
