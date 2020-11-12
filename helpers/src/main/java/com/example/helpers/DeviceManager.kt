@@ -24,10 +24,5 @@ class DeviceManager {
         fun getDeviceOs(): String {
             return Build.VERSION.RELEASE.toString()
         }
-    
-        fun getAppVersion(context: Context): String {
-            val info = context.packageManager.getPackageInfo(context.packageName, 0)
-            return info.versionName
-        }
     }
 }
