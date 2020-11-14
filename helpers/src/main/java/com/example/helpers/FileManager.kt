@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
+import android.os.Environment
 import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.util.Log
@@ -109,6 +110,26 @@ class FileManager {
                 result = cursor?.getString(columnIndex!!)!!
             } catch (e: Exception) {e.printStackTrace()}
             return result
+        }
+        
+        fun getCacheDirPath(activity: Activity): String {
+            return activity.cacheDir.absolutePath
+        }
+        
+        fun getDatabasePath(activity: Activity): String {
+            return activity.getDatabasePath(activity.packageName).absolutePath
+        }
+        
+        fun getFilePath(activity: Activity): String {
+            return activity.filesDir.absolutePath
+        }
+        
+        fun getExternalRootPath(): String {
+            return Environment.getExternalStorageDirectory().absolutePath
+        }
+        
+        fun getExternalCachePath(activity: Activity): String? {
+            return activity.externalCacheDir?.absolutePath
         }
 
         class GenerateFileName(private val context: Context) {
