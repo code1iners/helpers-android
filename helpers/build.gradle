@@ -62,7 +62,7 @@ dependencies {
     // note. gson
     implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
     // note. kakao
-    implementation "com.kakao.sdk:v2-user-rx:2.0.0"
+    implementation "com.kakao.sdk:v2-user-rx:2.0.5"
 
 }
 repositories {
