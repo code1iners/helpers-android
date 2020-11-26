@@ -16,12 +16,15 @@ fun ContentResolver.getFileName(uri: Uri): String {
 	return name
 }
 
-fun String.dateFormatConvert(format: String?): String? {
+fun String.dateFormatConvert(format: String?, locale: Locale?): String? {
 	var result: String? = null
+	
 	try {
 		if (format == null) return null
 		
-		val oldFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.KOREA)
+		val oldFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ",
+				locale ?: Locale.KOREA
+		)
 		val newFormat = SimpleDateFormat(format, Locale.KOREA)
 		
 		val date = oldFormat.parse(this)
