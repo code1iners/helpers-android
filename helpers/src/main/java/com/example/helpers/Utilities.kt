@@ -35,3 +35,23 @@ fun String.dateFormatConvert(format: String?, locale: Locale?): String? {
 	}
 	return result
 }
+
+fun String.dateFormatConvert(oldFormat: String?, newFormat: String?, locale: Locale?): String? {
+	var result: String? = null
+	
+	try {
+		if (oldFormat.isNullOrEmpty() || newFormat.isNullOrEmpty()) return null
+		
+		val oldFormat = SimpleDateFormat(oldFormat,
+				locale ?: Locale.KOREA
+		)
+		val newFormat = SimpleDateFormat(newFormat, locale ?: Locale.KOREA)
+		
+		val date = oldFormat.parse(this)
+		result = newFormat.format(date)
+	} catch (e: Exception) {
+		e.printStackTrace()
+		return null
+	}
+	return result
+}
