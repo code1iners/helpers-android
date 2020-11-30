@@ -23,8 +23,6 @@ class CreatedParser {
     var year: Long? = null
 
     fun parse(input: String): String?{
-        Log.w(TAG, object: Any(){}.javaClass.enclosingMethod!!.name)
-
         this.result = ""
         var inputDate = input
         try {
