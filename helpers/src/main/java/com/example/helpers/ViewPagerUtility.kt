@@ -23,9 +23,13 @@ class ViewPagerUtility {
                 // page.alpha = 0.25f + (1 - abs(position))
             }
         }
-
+    
         fun getItemDecoration(): HorizontalMarginItemDecoration {
             return HorizontalMarginItemDecoration(context, R.dimen.viewpager_current_item_horizontal_margin)
+        }
+    
+        fun getItemDecoration(horizontalMarginInDp: Int): HorizontalMarginItemDecoration {
+            return HorizontalMarginItemDecoration(context, horizontalMarginInDp)
         }
     }
     
