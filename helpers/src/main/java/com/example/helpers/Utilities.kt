@@ -55,3 +55,8 @@ fun String.dateFormatConvert(oldFormat: String?, newFormat: String?, locale: Loc
 	}
 	return result
 }
+
+fun String.getUsernameByEmail(): String {
+	if (!this.contains("@")) return this
+	return this.substring(0, this.indexOf("@"))
+}
