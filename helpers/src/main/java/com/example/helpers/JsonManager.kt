@@ -58,8 +58,12 @@ object JsonManager {
         }
         
         fun terminate() {
-            queue.cancelAll(requestJsonObject?.tag)
-            queue.cancelAll(requestJsonArray?.tag)
+            if (requestJsonObject != null) {
+                queue.cancelAll(requestJsonObject?.tag)
+            }
+            if (requestJsonArray != null) {
+                queue.cancelAll(requestJsonArray?.tag)
+            }
         }
         
         interface JsonRequestManagerListener {
