@@ -5,13 +5,12 @@ import android.text.InputFilter
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
+import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.NumberPicker
-import android.widget.TextView
+import android.widget.*
+import com.google.android.material.tabs.TabLayout
 
 object WidgetManager {
     class AnimationManager {
@@ -46,11 +45,11 @@ object WidgetManager {
                 return AnimationUtils.loadAnimation(context, R.anim.blink)
             }
 
-            fun fadeIn(context: Context): Animation {
+            fun getFadeIn(context: Context): Animation {
                 return AnimationUtils.loadAnimation(context, R.anim.fade_in)
             }
 
-            fun fadeOut(context: Context): Animation {
+            fun getFadeOut(context: Context): Animation {
                 return AnimationUtils.loadAnimation(context, R.anim.fade_out)
             }
         }
@@ -125,6 +124,15 @@ object WidgetManager {
         companion object {
             fun setMaxLength(editText: EditText, maxLength: Int) {
                 editText.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxLength))
+            }
+        }
+    }
+    
+    class TabLayoutManager {
+        companion object {
+            fun TabLayout.Tab.getTextView(tabs: TabLayout): TextView {
+                val tabLayout = (tabs.getChildAt(0) as ViewGroup).getChildAt(this.position) as LinearLayout
+                return tabLayout.getChildAt(1) as TextView
             }
         }
     }
