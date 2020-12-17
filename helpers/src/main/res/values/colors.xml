@@ -8,9 +8,11 @@
 
     <color name="sexyBlack">#2c2f33</color>
     <color name="sexyGray">#636e72</color>
+    <color name="sexyGray2">#4F61DC</color>
     <color name="sexyRed">#FD154F</color>
     <color name="sexyGreen">#54D298</color>
     <color name="sexyBlue">#01B3FD</color>
+    <color name="sexyBlue2">#4F61DC</color>
     <color name="sexyYellow">#FED06D</color>
     <color name="kakaoYellow">#FFE504</color>
     <color name="white">#FFFFFF</color>

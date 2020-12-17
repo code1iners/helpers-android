@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/textWriterActivity_layout"
+    android:orientation="vertical"
+    android:background="@drawable/border_radius_15"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginTop="40dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".activities.TextWriterActivity">
+
+    <RelativeLayout
+        android:id="@+id/textWriterActivity_header_container"
+        android:background="@color/white"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textWriterActivity_header_title"
+            android:text="@string/title"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/sexyBlack"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageButton
+            android:id="@+id/textWriterActivity_header_terminate"
+            android:src="@drawable/ic_baseline_close_24"
+            android:background="@null"
+            android:scaleType="centerCrop"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+
+    <View
+        android:background="@color/sexyGray2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <LinearLayout
+        android:id="@+id/textWriterActivity_body_container"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <EditText
+            android:id="@+id/textWriterActivity_body_editor"
+            android:singleLine="true"
+            android:imeOptions="actionDone"
+            android:paddingHorizontal="10dp"
+            android:layout_weight="8"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <Button
+            android:id="@+id/textWriterActivity_body_submit"
+            android:text="@string/done"
+            android:textColor="@drawable/btn_text_color_blue"
+            android:background="@drawable/btn_rounded_5_blue"
+            android:layout_marginStart="5dp"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</LinearLayout>
