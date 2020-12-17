@@ -1,8 +1,11 @@
 package com.example.helpers
 
+import android.app.Activity
 import android.content.ContentResolver
 import android.net.Uri
+import android.provider.MediaStore
 import android.provider.OpenableColumns
+import android.util.Log
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -59,4 +62,22 @@ fun String.dateFormatConvert(oldFormat: String?, newFormat: String?, locale: Loc
 fun String.getUsernameByEmail(): String {
 	if (!this.contains("@")) return this
 	return this.substring(0, this.indexOf("@"))
+}
+
+fun Uri.getImageFilePath(activity: Activity?): String? {
+	if (activity == null) {
+		Log.e("getImageFilePath", "activity is null")
+		return null
+	}
+	
+	var result = ""
+	try {
+		val proj = arrayOf(MediaStore.Images.Media.DATA)
+		val cursor = activity.contentResolver.query(this, proj, null, null, null)
+		activity.startManagingCursor(cursor)
+		val columnIndex = cursor?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+		cursor?.moveToFirst()
+		result = cursor?.getString(columnIndex!!)!!
+	} catch (e: java.lang.Exception) {e.printStackTrace()}
+	return result
 }
