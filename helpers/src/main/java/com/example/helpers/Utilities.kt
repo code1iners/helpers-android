@@ -6,6 +6,10 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.util.Log
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -64,6 +68,14 @@ fun String.getUsernameByEmail(): String {
 	return this.substring(0, this.indexOf("@"))
 }
 
+fun String.createMultipartBody(field: String): MultipartBody.Part? {
+	if (this.isEmpty()) return null
+	return MultipartBody.Part.createFormData(field, File(this).name, RequestBody.create(
+			MediaType.parse("multipart/form-data"),
+			File(this)
+	))
+}
+
 fun Uri.getImageFilePath(activity: Activity?): String? {
 	if (activity == null) {
 		Log.e("getImageFilePath", "activity is null")
@@ -73,6 +85,24 @@ fun Uri.getImageFilePath(activity: Activity?): String? {
 	var result = ""
 	try {
 		val proj = arrayOf(MediaStore.Images.Media.DATA)
+		val cursor = activity.contentResolver.query(this, proj, null, null, null)
+		activity.startManagingCursor(cursor)
+		val columnIndex = cursor?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+		cursor?.moveToFirst()
+		result = cursor?.getString(columnIndex!!)!!
+	} catch (e: java.lang.Exception) {e.printStackTrace()}
+	return result
+}
+
+fun Uri.getVideoFilePath(activity: Activity?): String? {
+	if (activity == null) {
+		Log.e("getImageFilePath", "activity is null")
+		return null
+	}
+	
+	var result = ""
+	try {
+		val proj = arrayOf(MediaStore.Video.Media.DATA)
 		val cursor = activity.contentResolver.query(this, proj, null, null, null)
 		activity.startManagingCursor(cursor)
 		val columnIndex = cursor?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
