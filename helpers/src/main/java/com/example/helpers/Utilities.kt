@@ -76,6 +76,14 @@ fun String.createMultipartBody(field: String): MultipartBody.Part? {
 	))
 }
 
+fun String.createMultipartBodyWithFileName(field: String, fileName: String): MultipartBody.Part? {
+	if (this.isEmpty()) return null
+	return MultipartBody.Part.createFormData(field, fileName, RequestBody.create(
+			MediaType.parse("multipart/form-data"),
+			File(this)
+	))
+}
+
 fun Uri.getImageFilePath(activity: Activity?): String? {
 	if (activity == null) {
 		Log.e("getImageFilePath", "activity is null")
