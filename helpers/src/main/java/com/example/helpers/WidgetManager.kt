@@ -1,6 +1,7 @@
 package com.example.helpers
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.text.InputFilter
 import android.util.Log
 import android.util.TypedValue
@@ -133,6 +134,24 @@ object WidgetManager {
             fun TabLayout.Tab.getTextView(tabs: TabLayout): TextView {
                 val tabLayout = (tabs.getChildAt(0) as ViewGroup).getChildAt(this.position) as LinearLayout
                 return tabLayout.getChildAt(1) as TextView
+            }
+        }
+    }
+    
+    class TextColorManager {
+        companion object {
+            fun createStateColor(context: Context?, unPressedColor: Int, pressedColor: Int): ColorStateList? {
+                context ?: return null
+                return ColorStateList(
+                    arrayOf(
+                        intArrayOf(android.R.attr.state_pressed),
+                        intArrayOf()
+                    ),
+                    intArrayOf(
+                        pressedColor,
+                        unPressedColor
+                    )
+                )
             }
         }
     }
