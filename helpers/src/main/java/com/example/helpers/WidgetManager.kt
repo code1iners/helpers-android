@@ -95,6 +95,42 @@ object WidgetManager {
 
     class LayoutParamsManager {
         val TAG = LayoutParamsManager::class.simpleName
+    
+        fun View.setMarginLeft(value: Int) {
+            var params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            params.setMargins(value.toDp(context), 0, 0, 0)
+            this.layoutParams = params
+        }
+    
+        fun View.setMarginRight(value: Int) {
+            var params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            params.setMargins(0, 0, value.toDp(context), 0)
+            this.layoutParams = params
+        }
+    
+        fun View.setMarginTop(value: Int) {
+            var params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            params.setMargins(0, value.toDp(context), 0, 0)
+            this.layoutParams = params
+        }
+    
+        fun View.setMarginBottom(value: Int) {
+            var params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            params.setMargins(0, 0, 0, value.toDp(context))
+            this.layoutParams = params
+        }
+    
+        fun View.setMarginHorizontal(value: Int) {
+            var params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            params.setMargins(value.toDp(context), 0, value.toDp(context), 0)
+            this.layoutParams = params
+        }
+    
+        fun View.setMarginVertical(value: Int) {
+            var params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            params.setMargins(0, value.toDp(context), 0, value.toDp(context))
+            this.layoutParams = params
+        }
 
         // note. get width and height
         fun getViewWidthAndHeight(view: View): HashMap<String, Int>? {
