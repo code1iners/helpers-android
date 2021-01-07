@@ -61,6 +61,7 @@ dependencies {
 
     // note. gson
     implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.5'
 
     // note. volly
     implementation 'com.android.volley:volley:1.1.1'
