@@ -52,5 +52,13 @@ class AnimationManager {
         fun getRotateRight45(context: Context): Animation {
             return AnimationUtils.loadAnimation(context, R.anim.rotate_right_45)
         }
+
+        fun getBottomNavHide(context: Context): Animation {
+            return AnimationUtils.loadAnimation(context, R.anim.bottom_nav_hide)
+        }
+
+        fun getBottomNavShow(context: Context): Animation {
+            return AnimationUtils.loadAnimation(context, R.anim.bottom_nav_show)
+        }
     }
 }
