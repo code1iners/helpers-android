@@ -60,5 +60,13 @@ class AnimationManager {
         fun getBottomNavShow(context: Context): Animation {
             return AnimationUtils.loadAnimation(context, R.anim.bottom_nav_show)
         }
+
+        fun getHeaderHide(context: Context): Animation {
+            return AnimationUtils.loadAnimation(context, R.anim.header_hide)
+        }
+
+        fun getHeaderShow(context: Context): Animation {
+            return AnimationUtils.loadAnimation(context, R.anim.header_show)
+        }
     }
 }
