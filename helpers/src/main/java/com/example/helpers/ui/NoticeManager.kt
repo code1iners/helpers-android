@@ -61,8 +61,16 @@ fun View.snacking(
     }
 }
 
+fun Context.toastingShort(messageId: Int) {
+    toastingShort(applicationContext.getString(messageId))
+}
+
 fun Context.toastingShort(message: String) {
     toasting(message, Toast.LENGTH_SHORT)
+}
+
+fun Context.toastingLong(messageId: Int) {
+    toastingLong(applicationContext.getString(messageId))
 }
 
 fun Context.toastingLong(message: String) {
