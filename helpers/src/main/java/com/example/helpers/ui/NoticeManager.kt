@@ -57,8 +57,9 @@ fun View.snacking(
     if (actionMessage != null) {
         snackbar.setAction(actionMessage) {
             action(this)
-        }.show()
+        }
     }
+    snackbar.show()
 }
 
 fun Context.toastingShort(messageId: Int) {
