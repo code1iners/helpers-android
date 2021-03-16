@@ -5,7 +5,7 @@
         android:color="@color/sexyBlack" />
 
     <corners
-        android:radius="@dimen/radius_s" />
+        android:radius="@dimen/round_s" />
 
     <solid
         android:color="@color/white" />
