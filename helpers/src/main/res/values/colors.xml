@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#FFFFFF</color>
     <color name="colorAccent">#E32D70</color>
 
-    <color name="selected_item">#FF9800</color>
+    <color name="selectedItem">#FF9800</color>
 
     <color name="sexyBlack">#2c2f33</color>
     <color name="sexyGray">#636e72</color>
@@ -12,8 +12,8 @@
     <color name="sexyGreen">#54D298</color>
     <color name="sexyBlue">#01B3FD</color>
     <color name="sexyYellow">#FED06D</color>
-    <color name="kakaoYellow">#FFE504</color>
-    <color name="white">#FFFFFF</color>
+    <color name="sexyKakaoYellow">#FFE504</color>
+    <color name="sexyWhite">#FFFFFF</color>
 
     <color name="transparent">#80000000</color>
 </resources>
