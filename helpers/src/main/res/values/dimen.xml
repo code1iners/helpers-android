@@ -29,4 +29,5 @@
     <dimen name="round_s">8dp</dimen>
     <dimen name="round_m">16dp</dimen>
     <dimen name="round_l">32dp</dimen>
+    <dimen name="round_xl">40dp</dimen>
 </resources>
