@@ -26,6 +26,9 @@
     <dimen name="text_5xl">40sp</dimen>
 
     <!--  rounded  -->
+    <dimen name="round_3xs">1dp</dimen>
+    <dimen name="round_2xs">2dp</dimen>
+    <dimen name="round_xs">4dp</dimen>
     <dimen name="round_s">8dp</dimen>
     <dimen name="round_m">16dp</dimen>
     <dimen name="round_l">32dp</dimen>

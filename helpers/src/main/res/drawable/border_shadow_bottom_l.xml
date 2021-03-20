@@ -5,7 +5,7 @@
         <shape>
 
             <padding
-                android:bottom="4dp" />
+                android:bottom="@dimen/spacing_2xs" />
 
             <solid android:color="#00CCCCCC" />
         </shape>

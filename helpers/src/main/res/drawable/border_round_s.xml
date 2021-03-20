@@ -8,5 +8,5 @@
         android:radius="@dimen/round_s" />
 
     <solid
-        android:color="@color/white" />
+        android:color="@color/sexyWhite" />
 </shape>
