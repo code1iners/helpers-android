@@ -3,65 +3,65 @@
     <!-- Drop Shadow Stack -->
     <item>
         <shape>
-            <corners android:radius="4dp" />
+            <corners android:radius="@dimen/round_xs" />
 
             <padding
-                android:bottom="2dp"
-                android:left="2dp"
-                android:right="2dp"
-                android:top="2dp" />
+                android:bottom="@dimen/spacing_xs"
+                android:left="@dimen/spacing_xs"
+                android:right="@dimen/spacing_xs"
+                android:top="@dimen/spacing_xs" />
 
             <solid android:color="#00CCCCCC" />
         </shape>
     </item>
     <item>
         <shape>
-            <corners android:radius="4dp" />
+            <corners android:radius="@dimen/round_xs" />
 
             <padding
-                android:bottom="2dp"
-                android:left="2dp"
-                android:right="2dp"
-                android:top="2dp" />
+                android:bottom="@dimen/spacing_xs"
+                android:left="@dimen/spacing_xs"
+                android:right="@dimen/spacing_xs"
+                android:top="@dimen/spacing_xs" />
 
             <solid android:color="#10CCCCCC" />
         </shape>
     </item>
     <item>
         <shape>
-            <corners android:radius="4dp" />
+            <corners android:radius="@dimen/round_xs" />
 
             <padding
-                android:bottom="2dp"
-                android:left="2dp"
-                android:right="2dp"
-                android:top="2dp" />
+                android:bottom="@dimen/spacing_xs"
+                android:left="@dimen/spacing_xs"
+                android:right="@dimen/spacing_xs"
+                android:top="@dimen/spacing_xs" />
 
             <solid android:color="#20d5d5d5" />
         </shape>
     </item>
     <item>
         <shape>
-            <corners android:radius="6dp" />
+            <corners android:radius="@dimen/round_xs" />
 
             <padding
-                android:bottom="2dp"
-                android:left="2dp"
-                android:right="2dp"
-                android:top="2dp" />
+                android:bottom="@dimen/spacing_xs"
+                android:left="@dimen/spacing_xs"
+                android:right="@dimen/spacing_xs"
+                android:top="@dimen/spacing_xs" />
 
             <solid android:color="#30cbcbcb" />
         </shape>
     </item>
     <item>
         <shape>
-            <corners android:radius="4dp" />
+            <corners android:radius="@dimen/round_xs" />
 
             <padding
-                android:bottom="2dp"
-                android:left="2dp"
-                android:right="2dp"
-                android:top="2dp" />
+                android:bottom="@dimen/spacing_xs"
+                android:left="@dimen/spacing_xs"
+                android:right="@dimen/spacing_xs"
+                android:top="@dimen/spacing_xs" />
 
             <solid android:color="#50bababa" />
         </shape>
@@ -70,9 +70,9 @@
     <!-- Background -->
     <item>
         <shape>
-            <solid android:color="#FFFFFF" />
+            <solid android:color="@color/sexyWhite" />
 
-            <corners android:radius="4dp" />
+            <corners android:radius="@dimen/round_xs" />
         </shape>
     </item>
 

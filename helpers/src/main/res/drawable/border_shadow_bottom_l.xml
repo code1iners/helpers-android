@@ -14,7 +14,7 @@
         <shape>
 
             <padding
-                android:bottom="4dp" />
+                android:bottom="@dimen/spacing_xs" />
 
             <solid android:color="#10EDEDED" />
         </shape>
@@ -23,7 +23,7 @@
         <shape>
 
             <padding
-                android:bottom="4dp" />
+                android:bottom="@dimen/spacing_xs" />
 
             <solid android:color="#20E8E8E8" />
         </shape>
@@ -32,7 +32,7 @@
         <shape>
 
             <padding
-                android:bottom="4dp" />
+                android:bottom="@dimen/spacing_xs" />
 
             <solid android:color="#30DCDCDC" />
         </shape>
@@ -41,7 +41,7 @@
         <shape>
 
             <padding
-                android:bottom="4dp" />
+                android:bottom="@dimen/spacing_xs" />
 
             <solid android:color="#50CFCFCF" />
         </shape>
@@ -50,7 +50,7 @@
     <!-- Background -->
     <item>
         <shape>
-            <solid android:color="#FFFFFF" />
+            <solid android:color="@color/sexyWhite" />
 
         </shape>
     </item>

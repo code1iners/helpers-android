@@ -6,5 +6,5 @@
         android:startColor="#7474BF"
         android:endColor="#348AC7"/>
     <corners
-        android:radius="20dp"/>
+        android:radius="@dimen/round_l"/>
 </shape>
